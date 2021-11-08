@@ -29,7 +29,7 @@ public class RecipeRepository {
             "insert into public.liked_recipe (recipe_id, user_id) values (?, ?)";
 
     private final String SQL_SAVE =
-            "insert into public.recipe (title, time_of_cooking, description, user_id) values (?, ?, ?, ?)";
+            "insert into public.recipe (title, time_of_cooking, description, user_id) values (?, ?, ?, ?) returning id";
 
     private final String SQL_UPDATE =
             "update public.recipe set (title, time_of_cooking, description) values (?, ?, ?)";

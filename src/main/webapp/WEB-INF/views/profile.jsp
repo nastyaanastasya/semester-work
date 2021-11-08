@@ -26,9 +26,9 @@
                             <li class="list-group-item email"><span id="email">${user.email}</span></li>
                             <li class="list-group-item rating"><span id="userRating">Rating: ${user.rating}</span></li>
                             <li class="list-group-item recipe_num"><span id="userRecipeNum">Recipes: <c:out value="${user.recipes.size()}" default="0"/></span></li>
-                            <c:if test="${id}">
+                            <c:if test="${user.id != sessionScope.user.id}">
                             <li class="list-group-item recipe_num">
-                                <button type="button" class="btn btn-outline-secondary ms-2 " style="width: 15vw; margin: 0 auto;">Follow</button>
+                                <button type="button" id="follow-btn" class="btn btn-outline-secondary ms-2 " style="width: 15vw; margin: 0 auto;">Follow</button>
                             </li>
                             </c:if>
                         </ul>
@@ -37,21 +37,21 @@
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto" >
                     <li class="nav-item">
-                        <a href="?content=res" class="nav-link link-dark" id="user-recipes"><i class="fas fa-birthday-cake"></i><span>Recipes</span></a>
+                        <a href="?content=res" class="nav-link link-dark" ><i class="fas fa-birthday-cake"></i><span>Recipes</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="?content=liked" class="nav-link link-dark" id="liked-recipes"><i class="fas fa-thumbs-up"></i><span>Liked recipes</span></a>
+                        <a href="?content=liked" class="nav-link link-dark" ><i class="fas fa-thumbs-up"></i><span>Liked recipes</span></a>
                     </li>
                     <li class="nav-item">
-                        <c:if test="${not id}">
-                            <a href="?content=saved" class="nav-link link-dark" id="saved-recipes"><i class="fas fa-bookmark"></i><span>Saved recipes</span></a>
+                        <c:if test="${user.id == sessionScope.user.id}">
+                            <a href="?content=saved" class="nav-link link-dark" ><i class="fas fa-bookmark"></i><span>Saved recipes</span></a>
                         </c:if>
                     </li>
                     <li class="nav-item">
-                        <a href="?content=fol" class="nav-link link-dark" id="following"><i class="fas fa-heart"></i><span>Following</span></a>
+                        <a href="?content=fol" class="nav-link link-dark" ><i class="fas fa-heart"></i><span>Following</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="?content=sub" class="nav-link link-dark" id="subscribers"><i class="fas fa-users"></i><span>Subscribers</span></a>
+                        <a href="?content=sub" class="nav-link link-dark" ><i class="fas fa-users"></i><span>Subscribers</span></a>
                     </li>
                 </ul>
             </div>
@@ -63,26 +63,20 @@
             <div class="recipe-actions d-flex justify-content-between">
                 <h3 class="user-content-title ms-3" id="profileContentTitle"><c:out value="${contentTitle}" default="Recipes"/></h3>
                 <div class="buttons d-flex justify-content-end">
-                    <select class="search-by form-select" id="profileSortCondition" aria-label="Default select example" style="width: 9vw;">
-                        <option selected>Sort by</option>
-                        <option id="new" name="sort" value="new">New</option>
-                        <option id="old" name="sort" value="old">Old</option>
-                        <option id="pop" name="sort" value="pop">Popular</option>
-                    </select>
-                    <c:if test="${not id}">
+                    <c:if test="${user.id eq sessionScope.user.id}">
                         <button type="button" id="add-new-recipe-btn" class="btn btn-outline-secondary ms-2">Add new recipe</button>
                     </c:if>
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-md-4 g-4">
             <c:choose>
-                <c:when test="${recipeList}">
-                    <c:forEach var="recipe" items="${recipeList}" >
+                <c:when test="${recipes}">
+                    <c:forEach var="recipe" items="${list}" >
                         <t:recipeCard recipe="${recipe}"/>
                     </c:forEach>
                 </c:when>
-                <c:when test="${userList}">
-                    <c:forEach var="user" items="${userList}" >
+                <c:when test="${users}">
+                    <c:forEach var="user" items="${list}" >
                         <t:userCard user="${user}"/>
                     </c:forEach>
                 </c:when>

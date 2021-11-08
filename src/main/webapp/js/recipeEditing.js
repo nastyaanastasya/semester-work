@@ -1,21 +1,20 @@
-document.getElementById('recipe-delete-btn')
-    .addEventListener('click', openDeleteRecipeDialog);
+num = 2;
 
-function openDeleteRecipeDialog() {
-    let action = confirm('Delete recipe? All changes will be lost.');
-    if (action) {
-        let request = new XMLHttpRequest();
-        request.open('POST', 'http://localhost:8080/another/recipe_editing?delete=1', true);
-        request.send();
-    }
-}
+document.getElementById('loaded-img')
+    .addEventListener('change', function (){
+        $(".col.preview-image.preview-show").remove();
+        readImage();
+    });
 
-document.getElementById('loaded-img').addEventListener('change', readImage, false);
-
-$(document).on('click', '.image-cancel', function() {
+$(document).on('click', '.delete-ingredient', function () {
     let no = $(this).data('no');
-    $(".col.preview-image.preview-show-"+no).remove();
+    $(".ingredient-item-" + no).remove();
+});
 
+$(document).on('click', '.new-ingredient', function () {
+    let output = $('#ingredients-view');
+    let html = addNextIngredient("", "", "");
+    output.append(html);
 });
 
 function showImages(paths) {
@@ -26,6 +25,11 @@ function showImages(paths) {
         let html = addNextImage(path, num++);
         output.append(html);
     }
+}
+
+function showTimeOfCooking(minutes) {
+    form['hours'].value = parseInt(minutes/60);
+    form['minutes'].value = minutes%60;
 }
 
 function readImage() {
@@ -48,9 +52,20 @@ function readImage() {
     }
 }
 
-function addNextImage(path, num) {
-    return '<div class="col preview-image preview-show-' + num + '">' +
-        '<div class="image-cancel" data-no="' + num + '">x</div>' +
-        '<div class="image-zone"><img id="pro-img-' + num + '" src="' + path + '"></div>' +
+function addNextIngredient(name, amount, unit) {
+    let html =  '<div class="ingredient-item-' + num +' mb-2 d-flex justify-content-start">' +
+        '<span class="ingredient-num">' + num + '.' + '</span>' +
+        '<input class="form-control ingredient ms-3" type="text" id="ingredient" value="'+name+'" name="ingredient" placeholder="Ingredient" style="width: 250px;">' +
+        '<input class="form-control amount ms-3" type="text" id="amount" value="'+amount+'" name="amount"  placeholder="Amount" style="width: 150px;">' +
+        '<input class="form-control amount ms-3" type="text" id="unit" value="'+unit+'" name="unit" placeholder="Unit" style="width: 150px;">' +
+        '<div class="delete-ingredient" data-no="' + num + '"><i class="fas fa-minus ms-3 mt-2" ></i></div>' +
+        '</div>';
+    num++;
+    return html;
+}
+
+function addNextImage(path) {
+    return '<div class="col preview-image preview-show">' +
+        '<div class="image-zone"><img id="pro-img" src="' + path + '"></div>' +
         '</div>';
 }

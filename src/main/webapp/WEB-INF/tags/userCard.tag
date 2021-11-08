@@ -5,7 +5,7 @@
     <div class="card">
         <c:choose>
             <c:when test="${user.image}">
-                <a href="#"><img src="<c:url value="${user.image}"/>" class="card-img-top" alt="profile-picture"></a>
+                <a href="#"><img src="<c:url value="file:///${user.image}"/>" class="card-img-top" alt="profile-picture"></a>
             </c:when>
             <c:otherwise>
                 <a href="#"><img src="<c:url value="/res/user_default.png"/>" class="card-img-top" alt="profile-picture"></a>

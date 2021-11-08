@@ -5,7 +5,7 @@
     <div class="card">
         <c:choose>
             <c:when test="${recipe.image}">
-                <a href="#"><img src="<c:url value="${recipe.image}"/>" class="card-img-top" alt="..."></a>
+                <a href="#"><img src="<c:url value="file:///${recipe.image}"/>" class="card-img-top" alt="..."></a>
             </c:when>
             <c:otherwise>
                 <a href="#"><img src="<c:url value="/res/icon.png"/>" class="card-img-top" alt="..."></a>

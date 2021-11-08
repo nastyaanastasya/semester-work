@@ -3,6 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:layout title="${recipe.title}">
+<script defer src="<c:url value="/js/recipeView.js"/>"></script>
     <!-- recipe -->
     <div class="recipe-view">
         <div class="container">
@@ -11,7 +12,9 @@
                     <h2 class="recipe-title mt-2">Title</h2>
                     <ul class="ingredient-list-dots mb-2">
                         <div class="mb-3"><i class="fas fa-clock"></i><span class="ms-1">
-<%--                            JAVASCRIPT FOR TIME --%>
+                            <script>
+                                showTimeOfCooking(${recipe.timeOfCooking});
+                            </script>
                         </span></div>
                         <c:forEach var="ingredient" items="${recipe.ingredients}">
                         <li>
@@ -53,9 +56,9 @@
             <div class="description mx-auto">
                 <h5 class="description-title mx-auto mb-3 mt-3">Description</h5>
                 <div class="recipe-text mb-2">
-                    <p>
-<%--                        BEAUTIFUL TEXT VIEW WITH JS--%>
-                    </p>
+                    <script>
+                        showRecipeDescription(${recipe.description});
+                    </script>
                 </div>
             </div>
             <hr>

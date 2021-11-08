@@ -27,7 +27,7 @@ public class CommentRepository {
             "select user_id from public.comment where id = ?";
 
     private final String SQL_GET_RECIPE_RATING =
-            "select avg(rating) from public.comment where recipe_id = ?";
+            "select avg(rating) as avg from public.comment where recipe_id = ?";
 
     private final String SQL_GET_LIKED_USERS =
             "select user_id from public.liked_comment where comment_id = ?";
@@ -68,7 +68,7 @@ public class CommentRepository {
     }
 
     public float findRecipeRating(long id){
-        return source.query(SQL_GET_RECIPE_RATING, row->row.getFloat("rating"), id).get(0);
+        return source.query(SQL_GET_RECIPE_RATING, row->row.getFloat("avg"), id).get(0);
     }
 
     public List<Long> getLikedCommentUsers(long id){

@@ -10,12 +10,7 @@
             <!-- search-area -->
             <div class="searh-area mb-3">
                 <div class="search-form d-flex justify-content-center">
-                    <select class="search-by form-select" aria-label="Default select example" style="width: 15vw;">
-                        <option selected>Search by...</option>
-                        <option value="1">Recipe</option>
-                        <option value="2">User</option>
-                    </select>
-                    <div class="form-search-field ms-3" style="width: 40vw;">
+                    <div class="form-search-field ms-3" style="width: 60vw;">
                         <input type="text" class="form-control" placeholder="Search..." id="search-field">
                     </div>
                     <div class="btn search ms-2" >

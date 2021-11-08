@@ -46,6 +46,7 @@ public class InitListener implements ServletContextListener {
         context.setAttribute("securityService", securityService);
         context.setAttribute("mediaService", mediaService);
         context.setAttribute("profileService", profileService);
+        context.setAttribute("recipeService", recipeService);
     }
 
     private PasswordEncoder getPasswordEncoder(){
