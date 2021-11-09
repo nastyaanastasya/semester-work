@@ -4,35 +4,17 @@
 
 <!-- comment -->
 <div class="comment-container">
-    <div class="media d-flex justify-content-between">
-        <c:choose>
-            <c:when test="${comment.user.image}">
-                <div><img src="<c:url value="${comment.user.image}"/>"alt="profile-picture"></div>
-            </c:when>
-            <c:otherwise>
-                <div><img src="<c:url value="/res/user_default.png"/>" alt="profile-picture"></div>
-            </c:otherwise>
-        </c:choose>
-        <div class="media-body">
+    <div class="media d-flex justify-content-start">
+        <div><img src="<c:url value="${comment.user.image}"/>"alt="profile-picture"></div>
+        <div class="media-body ms-2">
             <h4 class="media-heading">${comment.user.username}</h4>
-            <p>
-<%--                JAVASCRIPT CODE--%>
-<%--                beautiful text view--%>
-            </p>
+            <p>${comment.review}</p>
             <div class="info d-flex justify-content-between">
                 <ul class="list-unstyled list-inline media-detail pull-left d-flex justify-content-start mt-1">
-                    <li><i class="fa fa-calendar"></i>${comment.date.toLocaleString()}</li>
-                    <li><i class="like-btn fa fa-thumbs-up"></i>${comment.rating}</li>
+                    <li><i class="fa fa-calendar"></i>${comment.date}</li>
                 </ul>
-                <div class="rating-result mb-3">
-<%--                    JAVASCRIPT--%>
-<%--                    generate number of active stars--%>
-                    <span class="active"></span>
-                    <span ></span>
-                    <span ></span>
-                    <span></span>
-                    <span></span>
-<%--                    JAVASCRIPT--%>
+                <div class="rating-result mb-3" id="comment-rate">
+                    <li><i class="fa fa-star"></i>${comment.rating}</li>
                 </div>
             </div>
         </div>

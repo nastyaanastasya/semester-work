@@ -57,13 +57,11 @@ public class RecipeEditingServlet extends HttpServlet {
             String desc = req.getParameter("description");
             String ingr = req.getParameter("save-changes");
             List<Part> fileParts = req.getParts().stream().filter(part -> "loaded-img".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
-            if (title != null && !title.isEmpty() && (minutes != null && !minutes.isEmpty() || hours!=null && !hours.isEmpty()) && desc != null && !desc.isEmpty()) {
+            if (title != null && !title.isEmpty() && (minutes != null && !minutes.isEmpty() || hours != null && !hours.isEmpty()) && desc != null && !desc.isEmpty()) {
                 try {
-                    Recipe recipe = recipeService.createRecipe(title, hours, minutes, desc);
-                    long recipeId = recipeService.save(recipe, user.getId());
-                    List<Ingredient> list = recipeService.createIngredients(ingr);
-                    recipeService.saveIngredients(list, recipeId);
-                    mediaService.saveRecipeMedia(recipe, fileParts);
+                    long recipeId = recipeService.save(title, hours, minutes, desc, user.getId());
+                    recipeService.saveIngredients(ingr, recipeId);
+                    mediaService.saveRecipeMedia(recipeId, fileParts);
                     resp.sendRedirect(req.getContextPath() + "/profile");
                     return;
                 } catch (NumberFormatException e) {

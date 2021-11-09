@@ -8,17 +8,18 @@
         <div class="container">
 
             <!-- search-area -->
+            <form class="search-form" method="post">
             <div class="searh-area mb-3">
                 <div class="search-form d-flex justify-content-center">
                     <div class="form-search-field ms-3" style="width: 60vw;">
-                        <input type="text" class="form-control" placeholder="Search..." id="search-field">
+                        <input type="text" class="form-control" name="search-field" placeholder="Search..." id="search-field">
                     </div>
-                    <div class="btn search ms-2" >
+                    <button class="btn search ms-2"  type="submit" name="search-btn">
                         <i class="fas fa-search"></i>
-                    </div>
+                    </button>
                 </div>
-
             </div>
+            </form>
             <!-- search-area -->
 
             <!-- content-area -->
@@ -30,33 +31,8 @@
                 </div>
             </div>
             <!-- content-area -->
-
-        <%--JAVASCRIPT CODE GENERATED PAGINATION--%>
-            <!-- pagination -->
-            <nav class="d-flex justify-content-center mt-3">
-                <ul class="pagination pagination-base pagination-boxed pagination-square mb-0">
-                    <li class="page-item">
-                        <a class="page-link no-border" href="">
-                            <span aria-hidden="true">«</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-
-                    <li class="page-item active"><a class="page-link no-border" href="">1</a></li>
-<%--                    js--%>
-                    <li class="page-item">
-                        <a class="page-link no-border" href="">
-                            <span aria-hidden="true">»</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
-    <!-- pagination -->
-    <%--    JAVASCRIPT CODE GENERATED PAGINATION--%>
-
     <!-- search-content -->
 
 </t:layout>

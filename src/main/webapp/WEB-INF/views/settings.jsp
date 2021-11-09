@@ -16,14 +16,14 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-auto mb-3">
                                         <div class="mx-auto">
-                                            <c:choose>
-                                                <c:when test="${user.image != null}">
-                                                    <a href="#"><img class="image-changed" id="image-changed" src="<c:url value="file:///${user.image}"/>" alt="profile-picture"></a>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <a href="#"><img class="image-changed" id="image-changed" src="<c:url value="/res/user_default.png"/>"  alt="profile-picture"></a>
-                                                </c:otherwise>
-                                            </c:choose>
+                                        <c:choose>
+                                            <c:when test="${user.image}">
+                                                <a href=""><img class="image-changed" id="image-changed" src="<c:url value="../${user.image}"/>" alt="profile-picture"></a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href=""><img class="image-changed" id="image-changed" src="<c:url value="/res/user_default.png"/>" alt="profile-picture"></a>
+                                            </c:otherwise>
+                                        </c:choose>
                                         </div>
                                     </div>
                                     <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">

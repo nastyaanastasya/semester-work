@@ -1,0 +1,43 @@
+@media(max-width: 991px){
+    .header .dropdown{
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+}
+
+@media(max-width: 767px){
+    .profile-content{
+        display: inline;
+        justify-content:space-around;
+    }
+    .profile-content .side-bar{
+        margin-bottom: 15px;
+        width: 80vw;
+    }
+    .profile-content .user-recipe{
+        width: 80vw;
+    }
+    .profile-content .user-recipe .card .card-img-top{
+        height: 50vh;
+    }
+    .settings-content .container .editing{
+        width: 85vw;
+    }
+    .settings-content .editing-profile .profile-image{
+        width: 30vw;
+    }
+}
+
+@media(max-width: 424px){
+    .settings-content .editing-profile .profile-image{
+        width: 50vw;
+    }
+}
+
+@media(max-width: 374px){
+    .header .navbar .container-fluid{
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+}

@@ -19,5 +19,6 @@ public class User {
     private Date date;
     private String image;
     private List<User> subscribers;
+    private List<User> following;
     private List<Recipe> recipes;
 }

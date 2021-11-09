@@ -26,39 +26,27 @@ public class MediaService {
         this.repositoryPath = repositoryPath;
     }
 
-    public void saveUserMedia(User user, Part part) throws IOException {
+    public void saveUserMedia(long userId, Part part) throws IOException {
         long mediaId = uploadMedia(part.getSubmittedFileName(), part.getInputStream());
-        mediaRepository.saveUserMedia(user, mediaId);
+        mediaRepository.saveUserMedia(userId, mediaId);
     }
 
-    public void saveRecipeMedia(Recipe recipe, List<Part> parts) throws IOException {
+    public void saveRecipeMedia(long recipeId, List<Part> parts) throws IOException {
         for (Part part : parts) {
             long mediaId = uploadMedia(part.getSubmittedFileName(), part.getInputStream());
-            mediaRepository.saveRecipeMedia(recipe, mediaId);
+            mediaRepository.saveRecipeMedia(recipeId, mediaId);
         }
     }
 
-    public void saveCommentMedia(Comment comment, List<Part> parts) throws IOException {
-        for (Part part : parts) {
-            long mediaId = uploadMedia(part.getSubmittedFileName(), part.getInputStream());
-            mediaRepository.saveCommentMedia(comment, mediaId);
-        }
-    }
-
-    public String getUserMedia(User user) {
-        MediaFile media = mediaRepository.findByUserId(user.getId());
+    public String getUserMedia(long userId) {
+        MediaFile media = mediaRepository.findByUserId(userId);
         if (media != null)
             return downloadMedia(media.getId());
         return null;
     }
 
-    public List<String> getRecipeMedia(Recipe recipe) {
-        List<MediaFile> medias = mediaRepository.findByRecipeId(recipe.getId());
-        return getMediaPaths(medias);
-    }
-
-    public List<String> getCommentMedia(Comment comment) {
-        List<MediaFile> medias = mediaRepository.findByCommentId(comment.getId());
+    public List<String> getRecipeMedia(long recipeId) {
+        List<MediaFile> medias = mediaRepository.findByRecipeId(recipeId);
         return getMediaPaths(medias);
     }
 
@@ -93,10 +81,9 @@ public class MediaService {
 
     private String downloadMedia(long id) {
         MediaFile file = mediaRepository.findById(id);
-        if (file != null) {
-            Path path = repositoryPath.resolve(file.getName() + '.' + getExtension(file.getMimeType(), "/"));
-            return path.toString().replace("\\", "/");
-        } else throw new UnknownFileException("Such file doesn't exist.");
+        if (file != null)
+            return "../" + file.getName() + '.' + getExtension(file.getMimeType(), "/").replace("\\", "/");
+        else throw new UnknownFileException("Such file doesn't exist.");
     }
 
     private String getMimeType(Path path) throws IOException {

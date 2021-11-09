@@ -40,8 +40,8 @@ public class InitListener implements ServletContextListener {
 
         SecurityService securityService = new SecurityService(userRepository, passwordEncoder);
         MediaService mediaService = new MediaService(mediaRepository, Paths.get(repository));
-        RecipeService recipeService = new RecipeService(ingredientsRepository, commentRepository, recipeRepository);
-        ProfileService profileService = new ProfileService(mediaService, recipeRepository, userRepository);
+        RecipeService recipeService = new RecipeService(mediaService,ingredientsRepository, commentRepository, recipeRepository, userRepository);
+        ProfileService profileService = new ProfileService(mediaService, recipeService, userRepository);
 
         context.setAttribute("securityService", securityService);
         context.setAttribute("mediaService", mediaService);

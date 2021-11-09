@@ -14,4 +14,12 @@ public class SearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/views/search.jsp").forward(req, resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getParameter("search-btn") != null) {
+
+        }
+        getServletContext().getRequestDispatcher("/WEB-INF/views/search.jsp").forward(req, resp);
+    }
 }

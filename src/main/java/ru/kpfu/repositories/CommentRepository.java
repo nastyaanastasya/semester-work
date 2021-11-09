@@ -15,13 +15,13 @@ public class CommentRepository {
             "select * from public.comment where id = ?";
 
     private final String SQL_SAVE =
-            "insert into public.comment values (rating, review, user_id, recipe_id) values (?, ?, ?, ?) returning id";
+            "insert into public.comment (rating, review, user_id, recipe_id) values (?, ?, ?, ?) returning id";
 
     private final String SQL_DELETE =
             "delete from public.comment where id = ?";
 
     private final String SQL_FIND_BY_RECIPE_ID =
-            "select * from public.recipe where recipe_id = ? order by date desc";
+            "select * from public.comment where recipe_id = ? order by date desc";
 
     private final String SQL_FIND_USER_BY_COMMENT_ID =
             "select user_id from public.comment where id = ?";
@@ -64,7 +64,7 @@ public class CommentRepository {
     }
 
     public long findUserByCommentId(long id){
-        return source.query(SQL_FIND_USER_BY_COMMENT_ID, row->row.getLong(0), id).get(0);
+        return source.query(SQL_FIND_USER_BY_COMMENT_ID, row->row.getLong("user_id"), id).get(0);
     }
 
     public float findRecipeRating(long id){

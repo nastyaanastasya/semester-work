@@ -12,13 +12,13 @@ import java.util.List;
 @Setter
 public class Recipe {
     private long id;
-    private int saveAmount;
+    private long saveAmount;
     private float rating;
     private int timeOfCooking;
-    private int likesNumber;
+    private long likesNumber;
     private String title;
     private String description;
-    private String image;
+    private List<String> images;
     private Date date;
     private User user;
     List<Comment> comments;

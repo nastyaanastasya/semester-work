@@ -40,6 +40,7 @@ body{
 h1, h2, h3, h4, h5, h6{
     text-align: center;
     color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
 }
 
 p{
@@ -52,6 +53,14 @@ i:hover{
     cursor: pointer;
     transform: scale(1.1, 1.1);
 }
+
+button:active, button:focus {
+    outline: none;
+}
+button::-moz-focus-inner {
+    border: 0;
+}
+
 /* basic styles */
 
 
@@ -82,7 +91,7 @@ i:hover{
     width: 90vw;
 }
 
-.comment-content h4,h5{
+.comment-content h4{
     text-align: start;
 }
 
@@ -481,8 +490,7 @@ i:hover{
 
 .recipe-view .container .description{
     text-align: justify;
-    line-height: 1.7;
-    text-indent: 20px;
+    line-height: 2;
 }
 
 .recipe-view .container .description .recipe-text{
@@ -497,6 +505,10 @@ i:hover{
 
 .recipe-view .container .action-icons{
     margin-right: 10px;
+}
+
+.recipe-view .container i.active{
+    color: #7d2cb8;
 }
 /* recipe-view end */
 

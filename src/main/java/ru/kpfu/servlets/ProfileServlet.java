@@ -2,7 +2,6 @@ package ru.kpfu.servlets;
 
 import ru.kpfu.models.User;
 import ru.kpfu.services.ProfileService;
-import ru.kpfu.services.RecipeService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,39 +13,38 @@ import java.io.IOException;
 @WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {
     private ProfileService profileService;
-    private RecipeService recipeService;
 
     @Override
     public void init() throws ServletException {
         profileService = (ProfileService) getServletContext().getAttribute("profileService");
-        recipeService = (RecipeService) getServletContext().getAttribute("recipeService");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = (User) req.getSession().getAttribute("user");
         String id = req.getParameter("id");
         String content = req.getParameter("content");
-        User user;
-        if (id != null) {
+        if (id != null && !id.isEmpty()) {
             user = profileService.findById(Long.parseLong(id));
             req.setAttribute("user", user);
-        } else if ((user = (User) req.getAttribute("user")) != null) {
-            req.setAttribute("user", user);
-        } else {
-            user = (User) req.getSession().getAttribute("user");
         }
-        user.setImage(profileService.setProfileImage(user));
+        user = profileService.setUserContent(user);
         req.setAttribute("user", user);
-        if (content != null) {
-            if (content.equals("follower") || content.equals("subscribers")) {
-                req.setAttribute("list", profileService.getUsersContent(content, user.getId()));
+
+        if(content != null && !content.isEmpty()) {
+            if (content.equals("fol") || content.equals("sub")) {
+                req.setAttribute("userList", profileService.getUsersContent(content, user.getId()));
                 req.setAttribute("users", true);
             } else {
-                req.setAttribute("list", profileService.getRecipesContent(content, user.getId()));
+                req.setAttribute("recipeList", profileService.getRecipesContent(content, user.getId()));
                 req.setAttribute("recipes", true);
             }
-        } else req.setAttribute("list", profileService.getRecipesContent("res", user.getId()));
-        req.setAttribute("contentTitle", profileService.getTitle(content));
+        } else {
+            req.setAttribute("recipeList", user.getRecipes());
+            req.setAttribute("recipes", true);
+        }
+        req.setAttribute("rating", String.format("%.1f", profileService.getUserRating(user.getId())));
+        req.setAttribute("contentTitle", profileService.getContentTitle(content));
         getServletContext().getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(req, resp);
     }
 

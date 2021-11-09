@@ -14,7 +14,7 @@ public class RecipeRepository {
             "select * from public.recipe where id = ?";
 
     private final String SQL_FIND_BY_USER_ID =
-            "select * from public.recipe where user_id = ?";
+            "select * from public.recipe where user_id = ? order by date desc";
 
     private final String SQL_FIND_LIKED_RECIPE_USERS =
             "select user_id from public.liked_recipe where recipe_id = ?";
@@ -84,7 +84,8 @@ public class RecipeRepository {
 
     public Long save(Recipe recipe, long userId) {
         return source.query(
-                SQL_SAVE, row -> row.getLong("id"), recipe.getTitle(), recipe.getTimeOfCooking(), recipe.getDescription(), userId
+                SQL_SAVE, row -> row.getLong("id"), recipe.getTitle(), recipe.getTimeOfCooking(),
+                recipe.getDescription(), userId
         ).get(0);
     }
 

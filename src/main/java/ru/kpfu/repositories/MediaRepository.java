@@ -1,9 +1,6 @@
 package ru.kpfu.repositories;
 
-import ru.kpfu.models.Comment;
 import ru.kpfu.models.MediaFile;
-import ru.kpfu.models.Recipe;
-import ru.kpfu.models.User;
 import ru.kpfu.utils.RowMapper;
 
 import java.util.List;
@@ -17,7 +14,6 @@ public class MediaRepository {
 
     private final String SQL_UPDATE_USER_MEDIA = "update public.user set profile_img_id = ? where id = ?";
     private final String SQL_SAVE_RECIPE_MEDIA = "insert into recipe_media (recipe_id, media_id) values (?, ?)";
-    private final String SQL_SAVE_COMMENT_MEDIA = "insert into comment_media (comment_id, media_id) values (?, ?)";
 
     private final String SQL_UPDATE = "update public.media set (filename, mime_type) values (?, ?) where id = ?";
     private final String SQL_SAVE = "insert into public.media (filename, mime_type) values (?, ?) returning id";
@@ -27,11 +23,6 @@ public class MediaRepository {
                                                     "from public.media as m join public.recipe_media as rm " +
                                                     "on m.id = rm.media_id " +
                                                     "where rm.recipe_id = ?";
-
-    private final String SQL_FIND_BY_COMMENT_ID = "select m.id, m.filename, m.mime_type " +
-                                                    "from public.media as m join public.comment_media as cm " +
-                                                    "on m.id = cm.media_id " +
-                                                    "where cm.comment_id = ?";
 
     private final String SQL_FIND_BY_USER_ID = "select m.id, m.filename, m.mime_type " +
                                                 "from public.media as m join public.user as u " +
@@ -43,16 +34,12 @@ public class MediaRepository {
         this.source = new JdbcTemplate<>(driver, url, user, pass);
     }
 
-    public void saveUserMedia(User user, long mediaId) {
-        source.update(SQL_UPDATE_USER_MEDIA, mediaId, user.getId());
+    public void saveUserMedia(long userId, long mediaId) {
+        source.update(SQL_UPDATE_USER_MEDIA, mediaId, userId);
     }
 
-    public void saveRecipeMedia(Recipe recipe, long mediaId) {
-        source.update(SQL_SAVE_RECIPE_MEDIA, recipe.getId(), mediaId);
-    }
-
-    public void saveCommentMedia(Comment comment, long mediaId) {
-        source.update(SQL_SAVE_COMMENT_MEDIA, comment.getId(), mediaId);
+    public void saveRecipeMedia(long recipeId, long mediaId) {
+        source.update(SQL_SAVE_RECIPE_MEDIA, recipeId, mediaId);
     }
 
     public long save(MediaFile file) {
@@ -80,11 +67,6 @@ public class MediaRepository {
     public MediaFile findById(long id) {
         List<MediaFile> media = source.query(SQL_FIND_BY_ID, builder, id);
         return media.size() > 0 ? media.get(0) : null;
-    }
-
-    public List<MediaFile> findByCommentId(long id) {
-        List<MediaFile> media = source.query(SQL_FIND_BY_COMMENT_ID, builder, id);
-        return media.size() > 0 ? media : null;
     }
 
     public List<MediaFile> findByRecipeId(long id) {

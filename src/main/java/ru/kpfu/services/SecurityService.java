@@ -154,7 +154,7 @@ public class SecurityService {
 
     private void checkIfUsernameIsAlreadyExists(String username){
         if(userRepository.findByUsername(username) != null)
-            throw new OccupiedEmailException("This name is already in use. Please, choose another username.");
+            throw new OccupiedUsernameException("This name is already in use. Please, choose another username.");
     }
 
     private void checkIfEmailIsAlreadyRegistered(String email) {

@@ -10,6 +10,6 @@ import lombok.*;
 public class Ingredient {
     private long id;
     private String name;
-    private float amount;
+    private int amount;
     private String unit;
 }

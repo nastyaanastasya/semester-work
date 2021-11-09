@@ -27,7 +27,7 @@ function showImages(paths) {
     }
 }
 
-function showTimeOfCooking(minutes) {
+function showRecipeTimeOfCooking(minutes) {
     form['hours'].value = parseInt(minutes/60);
     form['minutes'].value = minutes%60;
 }

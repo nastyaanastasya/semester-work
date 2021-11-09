@@ -3,6 +3,7 @@ package ru.kpfu.servlets;
 import ru.kpfu.exceptions.*;
 import ru.kpfu.models.User;
 import ru.kpfu.services.MediaService;
+import ru.kpfu.services.ProfileService;
 import ru.kpfu.services.SecurityService;
 
 import javax.servlet.ServletException;
@@ -19,15 +20,18 @@ import java.io.IOException;
 public class SettingsServlet extends HttpServlet {
     private SecurityService securityService;
     private MediaService mediaService;
+    private ProfileService profileService;
 
     @Override
     public void init() throws ServletException {
         securityService = (SecurityService) getServletContext().getAttribute("securityService");
         mediaService = (MediaService) getServletContext().getAttribute("mediaService");
+        profileService = (ProfileService) getServletContext().getAttribute("profileService");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("user", profileService.findById(((User)req.getSession().getAttribute("user")).getId()));
         getServletContext().getRequestDispatcher("/WEB-INF/views/settings.jsp").forward(req, resp);
     }
 
@@ -39,13 +43,13 @@ public class SettingsServlet extends HttpServlet {
         String newPass = req.getParameter("new-pass");
         String repNewPass = req.getParameter("rep-new-pass");
         Part image = req.getPart("uploaded-image");
-        User user = securityService.getUser(req);
+        User user = profileService.findById(((User)req.getSession().getAttribute("user")).getId());
         if (req.getParameter("save-changes") != null) {
             try {
                 securityService.changeUserData(req.getSession(), user, newUsername, curPass, newPass, repNewPass);
                 if(image.getSubmittedFileName() != null && !image.getSubmittedFileName().isEmpty()) {
-                    mediaService.saveUserMedia(user, image);
-                    user.setImage(mediaService.getUserMedia(user));
+                    mediaService.saveUserMedia(user.getId(), image);
+                    user.setImage(mediaService.getUserMedia(user.getId()));
                 }
                 securityService.updateUserInSession(req, user);
                 resp.sendRedirect(getServletContext().getContextPath() + "/profile");

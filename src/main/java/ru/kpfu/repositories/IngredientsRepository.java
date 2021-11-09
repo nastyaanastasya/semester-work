@@ -58,7 +58,7 @@ public class IngredientsRepository {
         return row -> Ingredient.builder()
                 .id(row.getLong("id"))
                 .name(row.getString("name"))
-                .amount(row.getFloat("amount"))
+                .amount(row.getInt("amount"))
                 .unit(row.getString("unit"))
                 .build();
     }

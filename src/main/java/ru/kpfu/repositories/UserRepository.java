@@ -66,7 +66,7 @@ public class UserRepository implements CrudRepository<User> {
     }
 
     public List<Long> findUserSubscribers(long id) {
-        List<Long> list = source.query(SQL_FIND_USER_SUBSCRIBERS, row -> row.getLong("user_id"), id);
+        List<Long> list = source.query(SQL_FIND_USER_SUBSCRIBERS, row -> row.getLong("follower_id"), id);
         return list.size() > 0 ? list : null;
     }
 
