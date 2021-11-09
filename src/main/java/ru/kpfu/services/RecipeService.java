@@ -123,6 +123,10 @@ public class RecipeService {
         return recipes;
     }
 
+    public List<Recipe> getAllRecipes(){
+        return recipeRepository.findAll();
+    }
+
     public String getTimeString(int timeOfCooking) {
         String minutes = "";
         String hours = "";

@@ -10,6 +10,9 @@ public class RecipeRepository {
     private JdbcTemplate<Recipe> source;
     private RowMapper<Recipe> builder;
 
+    private final String SQL_FIND_ALL =
+            "select * from public.recipe";
+
     private final String SQL_FIND_BY_ID =
             "select * from public.recipe where id = ?";
 
@@ -115,6 +118,10 @@ public class RecipeRepository {
     public boolean findIfLiked(long recipeId, long userId) {
         List<Long> list = source.query(SQL_FIND_IF_LIKED, row -> row.getLong("id"), recipeId, userId);
         return list.size() > 0;
+    }
+
+    public List<Recipe> findAll(){
+        return source.query(SQL_FIND_ALL, builder);
     }
 
     private RowMapper<Recipe> getRecipeBuilder() {

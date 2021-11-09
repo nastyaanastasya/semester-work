@@ -7,7 +7,7 @@
     <div class="media d-flex justify-content-start">
         <div><img src="<c:url value="${comment.user.image}"/>"alt="profile-picture"></div>
         <div class="media-body ms-2">
-            <h4 class="media-heading">${comment.user.username}</h4>
+            <h4 class="media-heading"><a href="${pageContext.request.contextPath}/profile?id=${comment.user.id}">${comment.user.username}</a></h4>
             <p>${comment.review}</p>
             <div class="info d-flex justify-content-between">
                 <ul class="list-unstyled list-inline media-detail pull-left d-flex justify-content-start mt-1">

@@ -26,7 +26,22 @@
             <div class="content-area">
                 <div class="container">
                     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4">
-
+                        <c:choose>
+                            <c:when test="${sessionScope.recipeList.size()>0}">
+                                <c:forEach var="recipe" items="${sessionScope.recipeList}">
+                                    <t:recipeCard recipe="${recipe}"/>
+                                </c:forEach>
+                            </c:when>
+                            <c:when test="${sessionScope.userList.size()>0}">
+                                <c:forEach var="user" items="${sessionScope.userList}">
+                                    <t:userCard user="${user}"/>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <h1 class="no-content-text mx-auto"
+                                    style="color: rgba(0,0,0,0.1);margin-top: 15vh;width: auto;">No content here</h1>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>

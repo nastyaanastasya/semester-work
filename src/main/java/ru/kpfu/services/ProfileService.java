@@ -78,6 +78,10 @@ public class ProfileService {
         return titles.getOrDefault(val, "Recipes");
     }
 
+    public List<User> findAllUsers(){
+        return userRepository.findAll();
+    }
+
     public void follow(long userId, long followerId) {
         userRepository.addFollower(userId, followerId);
     }
