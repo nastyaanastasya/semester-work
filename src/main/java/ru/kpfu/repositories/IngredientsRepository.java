@@ -6,7 +6,7 @@ import ru.kpfu.utils.RowMapper;
 import java.util.List;
 
 public class IngredientsRepository {
-    private JdbcTemplate<Ingredient> source;
+    private DataSourceTemplate<Ingredient> source;
     private RowMapper<Ingredient> builder;
 
     private final String SQL_FIND_BY_ID =
@@ -27,7 +27,7 @@ public class IngredientsRepository {
 
     public IngredientsRepository(String driver, String url, String user, String pass) {
         builder = getIngredientBuilder();
-        this.source = new JdbcTemplate<>(driver, url, user, pass);
+        this.source = new DataSourceTemplate<>(driver, url, user, pass);
     }
 
     public Ingredient findById(long id) {

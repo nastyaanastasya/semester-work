@@ -7,12 +7,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcTemplate<T> {
+public class DataSourceTemplate<T> {
     private String url;
     private String user;
     private String pass;
 
-    public JdbcTemplate(String driver, String url, String user, String pass) {
+    public DataSourceTemplate(String driver, String url, String user, String pass) {
         getDriverInfo(driver);
         this.url = url;
         this.user = user;

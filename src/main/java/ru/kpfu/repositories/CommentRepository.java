@@ -8,7 +8,7 @@ import ru.kpfu.utils.RowMapper;
 import java.util.List;
 
 public class CommentRepository {
-    private JdbcTemplate<Comment> source;
+    private DataSourceTemplate<Comment> source;
     private RowMapper<Comment> builder;
 
     private final String SQL_GET_BY_ID =
@@ -40,7 +40,7 @@ public class CommentRepository {
 
     public CommentRepository(String driver, String url, String user, String pass) {
         builder = getCommentBuilder();
-        this.source = new JdbcTemplate<>(driver, url, user, pass);
+        this.source = new DataSourceTemplate<>(driver, url, user, pass);
     }
 
     public Comment getById(long id) {

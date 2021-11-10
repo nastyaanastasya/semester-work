@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class UserRepository implements CrudRepository<User> {
-    private JdbcTemplate<User> source;
+    private DataSourceTemplate<User> source;
     private RowMapper<User> builder;
 
     private final String SQL_FIND_ALL =
@@ -57,7 +57,7 @@ public class UserRepository implements CrudRepository<User> {
 
     public UserRepository(String driver, String url, String user, String pass) {
         builder = getUserBuilder();
-        this.source = new JdbcTemplate<>(driver, url, user, pass);
+        this.source = new DataSourceTemplate<>(driver, url, user, pass);
     }
 
     public List<Long> findUserFollowing(long id) {

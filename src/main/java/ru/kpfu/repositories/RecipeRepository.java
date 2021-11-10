@@ -7,7 +7,7 @@ import ru.kpfu.utils.RowMapper;
 import java.util.List;
 
 public class RecipeRepository {
-    private JdbcTemplate<Recipe> source;
+    private DataSourceTemplate<Recipe> source;
     private RowMapper<Recipe> builder;
 
     private final String SQL_FIND_ALL =
@@ -54,7 +54,7 @@ public class RecipeRepository {
 
     public RecipeRepository(String driver, String url, String user, String pass) {
         builder = getRecipeBuilder();
-        this.source = new JdbcTemplate<>(driver, url, user, pass);
+        this.source = new DataSourceTemplate<>(driver, url, user, pass);
     }
 
     public Recipe findById(long id) {

@@ -6,7 +6,7 @@ import ru.kpfu.utils.RowMapper;
 import java.util.List;
 
 public class MediaRepository {
-    private JdbcTemplate<MediaFile> source;
+    private DataSourceTemplate<MediaFile> source;
     private RowMapper<MediaFile> builder;
 
     private final String SQL_FIND_BY_ID = "select * from public.media where id = ?";
@@ -31,7 +31,7 @@ public class MediaRepository {
 
     public MediaRepository(String driver, String url, String user, String pass) {
         builder = getMediaBuilder();
-        this.source = new JdbcTemplate<>(driver, url, user, pass);
+        this.source = new DataSourceTemplate<>(driver, url, user, pass);
     }
 
     public void saveUserMedia(long userId, long mediaId) {
