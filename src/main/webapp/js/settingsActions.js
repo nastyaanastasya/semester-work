@@ -1,6 +1,5 @@
 document.getElementById('btn-file-input-settings').addEventListener('click', chooseImage);
-document.getElementById('delete-account-btn')
-    .addEventListener('click', openDeleteAccountDialog);
+document.getElementById('delete-account-btn').addEventListener('click', openDeleteAccountDialog);
 
 function chooseImage(){
     let elem = document.getElementById('file-input-settings');
