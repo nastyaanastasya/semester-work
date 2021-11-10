@@ -27,11 +27,12 @@ public class ProfileServlet extends HttpServlet {
         if (id != null && !id.isEmpty()) {
             user = profileService.findById(Long.parseLong(id));
             req.setAttribute("user", user);
+            req.setAttribute("isFollow", profileService.isFollow(user.getId(), ((User) req.getSession().getAttribute("user")).getId()));
         }
         user = profileService.setUserContent(user);
         req.setAttribute("user", user);
 
-        if(content != null && !content.isEmpty()) {
+        if (content != null && !content.isEmpty()) {
             if (content.equals("fol") || content.equals("sub")) {
                 req.setAttribute("userList", profileService.getUsersContent(content, user.getId()));
                 req.setAttribute("users", true);
@@ -50,6 +51,16 @@ public class ProfileServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+        User user = (User) req.getSession().getAttribute("user");
+        if (id != null && !id.isEmpty()) {
+            long followId = Long.parseLong(id);
+            if (profileService.isFollow(followId, user.getId())) {
+                profileService.unfollow(followId, user.getId());
+            } else profileService.follow(followId, user.getId());
+            resp.sendRedirect(req.getContextPath() + "/profile?id=" + id);
+            return;
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(req, resp);
     }
 }

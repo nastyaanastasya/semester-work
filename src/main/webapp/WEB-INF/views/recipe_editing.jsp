@@ -29,7 +29,7 @@
                             <div class="form-add">
                                 <div class="inputs">
                                     <div class="title mb-3">
-                                        <input type="text" class="form-control" id="title" name="recipe-title"
+                                        <input type="text" class="form-control" id="title" value="${title}" name="recipe-title"
                                                placeholder="Recipe title">
                                     </div>
                                     <div class="time-of-cooking mb-3">
@@ -37,9 +37,6 @@
                                         <input type="text" class="form-control ms-3" name="hours" placeholder="hh">
                                         <span class="colon ms-1">:</span>
                                         <input type="text" class="form-control ms-1" name="minutes" placeholder="mm">
-                                        <script>
-                                            showRecipeTimeOfCooking(${recipe.timeOfCooking});
-                                        </script>
                                     </div>
                                     <div class="ingredients mb-3" id="ingredients-view">
                                         <div class="ingredients-title mb-3">Ingredients:</div>

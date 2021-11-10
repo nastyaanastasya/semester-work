@@ -65,6 +65,8 @@ public class RecipeEditingServlet extends HttpServlet {
                     resp.sendRedirect(req.getContextPath() + "/profile");
                     return;
                 } catch (NumberFormatException e) {
+                    req.setAttribute("title", title);
+                    req.setAttribute("description", desc);
                     req.setAttribute(attr, "Invalid time parameters.");
                 }
             } else req.setAttribute(attr, "Some fields are empty.");

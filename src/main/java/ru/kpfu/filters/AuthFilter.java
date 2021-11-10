@@ -17,7 +17,7 @@ public class AuthFilter extends HttpFilter {
 
     @Override
     public void init() throws ServletException {
-        protectedPaths = new String[]{"/profile", "/recipe", "/recipe_editing"};
+        protectedPaths = new String[]{"/profile", "/recipe", "/recipe_editing", "/logout", "/search"};
         securityService = (SecurityService) getServletContext().getAttribute("securityService");
     }
 

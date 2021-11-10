@@ -20,11 +20,26 @@
                             <li class="list-group-item rating"><span id="userRating">Rating: ${rating}</span></li>
                             <li class="list-group-item recipe_num"><span id="userRecipeNum">
                                 Recipes: <c:out value="${user.recipes.size()}" default="0"/></span>
-                            </li><c:if test="${user.id != sessionScope.user.id}">
+                            </li>
+                            <c:if test="${user.id != sessionScope.user.id}">
                                 <li class="list-group-item recipe_num">
-                                    <button type="button" id="follow-btn" class="btn btn-outline-secondary ms-2 "
-                                            style="width: 15vw; margin: 0 auto;">Follow
-                                    </button>
+                                    <form method="post"
+                                          action="${pageContext.request.contextPath}/profile?id=${user.id}">
+                                        <c:choose>
+                                            <c:when test="${isFollow}">
+                                                <button type="submit" name="id" value="${user.id}" id="follow-btn"
+                                                        class="btn btn-outline-secondary ms-2 "
+                                                        style="width: 15vw; margin: 0 auto;">Unfollow
+                                                </button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button type="submit" name="id" value="${user.id}" id="follow-btn"
+                                                        class="btn btn-outline-secondary ms-2 "
+                                                        style="width: 15vw; margin: 0 auto;">Follow
+                                                </button>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </form>
                                 </li>
                             </c:if>
                         </ul>
@@ -33,14 +48,17 @@
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="?content=res&id=${user.id}" class="nav-link link-dark"><i class="fas fa-birthday-cake"></i><span>Recipes</span></a>
+                        <a href="?content=res&id=${user.id}" class="nav-link link-dark"><i
+                                class="fas fa-birthday-cake"></i><span>Recipes</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="?content=liked&id=${user.id}" class="nav-link link-dark"><i class="fas fa-thumbs-up"></i><span>Liked recipes</span></a>
+                        <a href="?content=liked&id=${user.id}" class="nav-link link-dark"><i
+                                class="fas fa-thumbs-up"></i><span>Liked recipes</span></a>
                     </li>
                     <li class="nav-item">
                         <c:if test="${user.id == sessionScope.user.id}">
-                            <a href="?content=saved&id=${user.id}" class="nav-link link-dark"><i class="fas fa-bookmark"></i><span>Saved recipes</span></a>
+                            <a href="?content=saved&id=${user.id}" class="nav-link link-dark"><i
+                                    class="fas fa-bookmark"></i><span>Saved recipes</span></a>
                         </c:if>
                     </li>
                     <li class="nav-item">

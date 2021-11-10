@@ -65,13 +65,6 @@ public class SecurityService {
         return false;
     }
 
-    public User getUser(HttpServletRequest req) {
-        if (isAuth(req)) {
-            return (User) req.getSession().getAttribute(SESSION_USER_ATTR);
-        }
-        return null;
-    }
-
     public void changeUserData(HttpSession session, User user, String newUsername, String curPass, String newPass, String repNewPass){
         if((newUsername != null) && !newUsername.isEmpty() && !newUsername.equals(user.getUsername())){
             checkUsername(newUsername);
